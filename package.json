@@ -1,0 +1,34 @@
+{
+  "name": "@noticeable/remarkable-iframify",
+  "version": "1.0.0",
+  "description": "Remarkable plugin to replace URLs to video provider (e.g. Viameo, Youtube) by an embedded iframe.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=6.11.1"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noticeableapp/remarkable-iframify.git"
+  },
+  "keywords": [
+    "remarkable",
+    "remarkable-iframify",
+    "remarkable-plugin",
+    "viameo",
+    "youtube"
+  ],
+  "author": "Laurent Pellegrino <laurent.pellegrino@noticeable.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/noticeableapp/remarkable-iframify/issues"
+  },
+  "homepage": "https://github.com/noticeableapp/remarkable-iframify#readme",
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^3.5.0"
+  }
+}
