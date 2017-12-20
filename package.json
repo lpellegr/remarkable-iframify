@@ -1,6 +1,6 @@
 {
   "name": "@noticeable/remarkable-iframify",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Remarkable plugin to replace URLs to video provider (e.g. Viameo, Youtube) by an embedded iframe.",
   "main": "index.js",
   "engines": {
