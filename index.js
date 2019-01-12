@@ -15,7 +15,11 @@
             closeTag: () => '</iframe></div>'
         },
         'youtube': {
-            openTag: (videoId) => '<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/' + videoId + '?rel=0&showinfo=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no">',
+            openTag: (videoId) => '<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/' + videoId + '?rel=0&showinfo=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media">',
+            closeTag: () => '</iframe></div>'
+        },
+        'youtube-playlist': {
+            openTag: (playlistId) => '<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/videoseries?list=' + playlistId + '" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media">',
             closeTag: () => '</iframe></div>'
         }
     };
@@ -74,10 +78,18 @@
         }
 
         if (/youtube|youtu\.be|i.ytimg\./.test(str)) {
-            return {
-                id: youtube(str),
-                service: 'youtube'
-            };
+            const playlistId = youtubePlaylist(str);
+            if (playlistId) {
+                return {
+                    id: playlistId,
+                    service: 'youtube-playlist'
+                };
+            } else {
+                return {
+                    id: youtube(str),
+                    service: 'youtube'
+                };
+            }
         } else if (/vimeo/.test(str)) {
             return {
                 id: vimeo(str),
@@ -196,6 +208,17 @@
         }
     }
 
+    function youtubePlaylist(str) {
+        const reg = new RegExp("[&?]list=([a-z0-9_]+)", "i");
+        const match = reg.exec(str);
+
+        if (match && match[1].length > 0) {
+            return match[1];
+        }
+
+        return null;
+    }
+
     /**
      * Get the VideoPress id.
      * @param {string} str - the url from which you want to extract the id
@@ -233,9 +256,9 @@
         if (typeof module !== 'undefined' && module.exports) {
             exports = module.exports = iframify
         }
-        exports.iframify = iframify
-    }
-    else {
+        exports.iframify = iframify;
+    } else {
         window.iframify = iframify
     }
 })();
+
