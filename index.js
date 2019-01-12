@@ -14,6 +14,10 @@
             openTag: (videoId) => '<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 100%;"><iframe src="https://vine.co/v/' + videoId + '/embed/simple" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen>',
             closeTag: () => '</iframe></div>'
         },
+        'wistia': {
+            openTag: (videoId) => '<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;"><iframe src="https://fast.wistia.net/embed/iframe/' + videoId + '" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media">',
+            closeTag: () => '</iframe></div>'
+        },
         'youtube': {
             openTag: (videoId) => '<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;"><iframe src="https://www.youtube.com/embed/' + videoId + '?rel=0&showinfo=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="autoplay; encrypted-media">',
             closeTag: () => '</iframe></div>'
@@ -105,6 +109,18 @@
                 id: videopress(str),
                 service: 'videopress'
             };
+        } else if (/wistia\.com|wi\.st/.test(str)) {
+            const regex = /(?:wistia\.com|wi\.st)\/(?:medias|embed)\/(.*)$/;
+            const match = str.match(regex);
+
+            if (match && match[1]) {
+                return {
+                    id: match[1],
+                    service: 'wistia'
+                };
+            }
+
+            return null;
         } else {
             return null;
         }
@@ -254,11 +270,10 @@
 
     if (typeof exports !== 'undefined') {
         if (typeof module !== 'undefined' && module.exports) {
-            exports = module.exports = iframify
+            exports = module.exports = iframify;
         }
         exports.iframify = iframify;
     } else {
-        window.iframify = iframify
+        window.iframify = iframify;
     }
 })();
-
