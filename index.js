@@ -225,7 +225,7 @@
     }
 
     function youtubePlaylist(str) {
-        const reg = new RegExp("[&?]list=([a-z0-9_]+)", "i");
+        const reg = new RegExp("[&?]list=([a-z0-9_-]+)", "i");
         const match = reg.exec(str);
 
         if (match && match[1].length > 0) {
